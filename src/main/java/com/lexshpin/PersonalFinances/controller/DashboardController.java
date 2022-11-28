@@ -35,8 +35,8 @@ public class DashboardController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Transaction>> getUserTransactions(String userEmail) {
-        List<Transaction> userTransactions = transactionService.findAllByUserEmail(userEmail);
+    public ResponseEntity<List<Transaction>> getUserTransactions(@RequestBody UserDTO userDTO) {
+        List<Transaction> userTransactions = transactionService.findAllByUserEmail(userDTO.getEmail());
         return new ResponseEntity<>(userTransactions, HttpStatus.OK);
     }
 
@@ -50,7 +50,7 @@ public class DashboardController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    public User convertToUser(UserDTO userDTO) {
+    private User convertToUser(UserDTO userDTO) {
         return modelMapper.map(userDTO, User.class);
     }
 }

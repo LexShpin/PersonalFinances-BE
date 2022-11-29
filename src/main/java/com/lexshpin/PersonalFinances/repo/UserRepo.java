@@ -1,9 +1,12 @@
 package com.lexshpin.PersonalFinances.repo;
 
+import com.lexshpin.PersonalFinances.dto.UserDTO;
 import com.lexshpin.PersonalFinances.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends JpaRepository<User, Integer> {
+import java.util.Optional;
 
-    User findByEmail(String email);
+public interface UserRepo extends JpaRepository<User, Integer> {
+    
+    Optional<User> findByUsername(String username);
 }

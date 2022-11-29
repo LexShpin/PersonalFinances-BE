@@ -11,9 +11,9 @@ public class UserDTO {
     @Size(min = 2, max = 30, message = "Name must be between 2 and 30 characters long")
     private String name;
 
-    @Column(name = "email")
+    @Column(name = "username")
     @NotEmpty(message = "Please enter your email")
-    private String email;
+    private String username;
 
     @Column(name = "password")
     @NotEmpty(message = "Please enter the password")
@@ -30,12 +30,12 @@ public class UserDTO {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

@@ -26,7 +26,7 @@ public class TransactionController {
 
     @GetMapping()
     public ResponseEntity<List<Transaction>> getAllUserTransactions(@RequestBody UserDTO userDTO) {
-        List<Transaction> transactions = transactionService.findAllByUserEmail(userDTO.getEmail());
+        List<Transaction> transactions = transactionService.findAllByUsername(userDTO.getName());
 
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }

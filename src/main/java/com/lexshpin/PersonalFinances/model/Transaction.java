@@ -28,17 +28,17 @@ public class Transaction {
     @Column(name = "notes")
     private String notes;
 
-    @Column(name = "user_email")
-    private String userEmail;
+    @Column(name = "username")
+    private String username;
 
     public Transaction() {}
 
-    public Transaction(Date date, String category, double amount, String notes, String userEmail) {
+    public Transaction(Date date, String category, double amount, String notes, String username) {
         this.date = date;
         this.category = category;
         this.amount = amount;
         this.notes = notes;
-        this.userEmail = userEmail;
+        this.username = username;
     }
 
     public int getId() {
@@ -81,12 +81,12 @@ public class Transaction {
         this.notes = notes;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUsername(String userEmail) {
+        this.username = userEmail;
     }
 
     @Override

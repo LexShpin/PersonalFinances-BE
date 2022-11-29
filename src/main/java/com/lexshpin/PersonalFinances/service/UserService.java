@@ -2,15 +2,18 @@ package com.lexshpin.PersonalFinances.service;
 
 import com.lexshpin.PersonalFinances.model.User;
 import com.lexshpin.PersonalFinances.repo.UserRepo;
+import com.lexshpin.PersonalFinances.security.UsersDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Component
+@Service
 public class UserService implements UserDetailsService {
 
     private final UserRepo userRepo;
@@ -28,18 +31,14 @@ public class UserService implements UserDetailsService {
         return userRepo.findById(id).orElse(null);
     }
 
-    public User findByEmail(String email) {
-        return userRepo.findByEmail(email);
-    }
-
     public void save(User user) {
         userRepo.save(user);
     }
 
-    public void update(String email, User user) {
-        user.setEmail(email);
+    public void update(String email, User userDTO) {
+        userDTO.setUsername(email);
 
-        userRepo.save(user);
+        userRepo.save(userDTO);
     }
 
     public void delete(int id) {
@@ -48,6 +47,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        Optional<User> user = userRepo.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("Could not find a user with that username");
+        }
+
+        return new UsersDetails(user.get());
     }
+
 }

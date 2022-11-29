@@ -1,13 +1,11 @@
 package com.lexshpin.PersonalFinances.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "User")
+@Table(name = "userdetails")
 public class User {
 
     @Id
@@ -20,23 +18,24 @@ public class User {
     @Size(min = 2, max = 30, message = "Name must be between 2 and 30 characters long")
     private String name;
 
-    @Column(name = "email")
-    @NotEmpty(message = "Please enter your email")
-    private String email;
+    @Column(name = "username")
+    @NotEmpty(message = "Please enter your username")
+    private String username;
 
     @Column(name = "password")
     @NotEmpty(message = "Please enter the password")
     private String password;
 
     @Column(name = "balance")
-    private double balance;
+    private Double balance;
 
     public User() {}
 
-    public User(String name, String email, String password) {
+    public User(String name, String username, String password) {
         this.name = name;
-        this.email = email;
+        this.username = username;
         this.password = password;
+        this.balance = 0.0;
     }
 
     public int getId() {
@@ -55,12 +54,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String email) {
+        this.username = email;
     }
 
     public String getPassword() {
@@ -84,7 +83,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", balance=" + balance +
                 '}';

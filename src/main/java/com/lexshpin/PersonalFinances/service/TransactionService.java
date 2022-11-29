@@ -19,10 +19,9 @@ public class TransactionService {
         return transactionRepo.findAll();
     }
 
-    public List<Transaction> findAllByUserEmail(String email) {
-        return transactionRepo.findAllByUserEmail(email);
+    public List<Transaction> findAllByUsername(String username) {
+        return transactionRepo.findAllByUsername(username);
     }
-
     public Transaction findOne(int id) {
         return transactionRepo.findById(id).orElse(null);
     }

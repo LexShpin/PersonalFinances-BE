@@ -27,11 +27,12 @@ public class DashboardController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping()
-    public ResponseEntity<Authentication> loadDashboard(String username) {
+    @GetMapping("/{username}")
+    public ResponseEntity<UserDetails> loadDashboard(@PathVariable("username") String username) {
 
+        UserDetails currentUser = userService.loadUserByUsername(username);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
     @GetMapping("/transactions")

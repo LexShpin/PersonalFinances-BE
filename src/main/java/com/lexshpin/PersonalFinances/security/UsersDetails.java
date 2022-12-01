@@ -27,7 +27,11 @@ public class UsersDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getName();
+        return this.user.getUsername();
+    }
+
+    public Double getBalance() {
+        return this.user.getBalance();
     }
 
     @Override

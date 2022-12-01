@@ -53,6 +53,8 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("Could not find a user with that username");
         }
 
+        user.get().setBalance(0.0);
+
         return new UsersDetails(user.get());
     }
 

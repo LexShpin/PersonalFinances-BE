@@ -35,6 +35,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/index.html", "/", "/auth/login", "/auth/register").permitAll()
+                        .requestMatchers("/dashboard", "/transactions").authenticated()
                         .anyRequest().permitAll())
                 .userDetailsService(userDetailsService)
                 .formLogin();

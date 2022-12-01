@@ -35,7 +35,6 @@ public class User {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.balance = 0.0;
     }
 
     public int getId() {

@@ -29,7 +29,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().and()
+        http.cors().disable()
                 .csrf().disable()
                 .httpBasic()
                 .and()
@@ -37,8 +37,11 @@ public class SecurityConfig {
                         .requestMatchers("/index.html", "/", "/auth/login", "/auth/register").permitAll()
                         .anyRequest().permitAll())
                 .userDetailsService(userDetailsService)
-                .formLogin()
-                .loginProcessingUrl("/auth/process_login");
+                .formLogin();
+//                .loginPage("/auth/login")
+//                .loginProcessingUrl("/auth/process_login")
+//                .defaultSuccessUrl("/dashboard")
+//                .failureUrl("/auth/login?error");
 
         return http.build();
     }

@@ -34,6 +34,10 @@ public class UsersDetails implements UserDetails {
         return this.user.getBalance();
     }
 
+    public void setBalance(Double balance) {
+        this.user.setBalance(balance);
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

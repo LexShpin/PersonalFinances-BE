@@ -2,6 +2,7 @@ package com.lexshpin.PersonalFinances.controller;
 
 import com.lexshpin.PersonalFinances.model.Transaction;
 import com.lexshpin.PersonalFinances.model.User;
+import com.lexshpin.PersonalFinances.security.UsersDetails;
 import com.lexshpin.PersonalFinances.service.TransactionService;
 import com.lexshpin.PersonalFinances.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class DashboardController {
     @GetMapping("/{username}")
     public ResponseEntity<UserDetails> loadDashboard(@PathVariable("username") String username) {
 
-        UserDetails currentUser = userService.loadUserByUsername(username);
+        UsersDetails currentUser = userService.loadUserByUsername(username);
+        System.out.println(currentUser.getBalance());
 
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
@@ -41,13 +43,14 @@ public class DashboardController {
         return new ResponseEntity<>(userTransactions, HttpStatus.OK);
     }
 
-    @PostMapping("/updateBalance")
-    public ResponseEntity<User> updateUserBalance(@RequestBody User user, double newBalance) {
-        user.setBalance(newBalance);
+    @PostMapping("/{username}/updateBalance")
+    public ResponseEntity<UsersDetails> updateUserBalance(@PathVariable("username") String username, double balance) {
 
-        userService.update(user.getUsername(), user);
+        // TODO - endpoint for updating balance
+        UsersDetails currentUser = userService.loadUserByUsername(username);
+        currentUser.setBalance(balance);
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
 }

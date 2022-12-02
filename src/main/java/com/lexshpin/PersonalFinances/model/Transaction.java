@@ -15,14 +15,12 @@ public class Transaction {
     private int id;
 
     @Column(name = "date")
-    @NotEmpty(message = "Please specify the date")
     private Date date;
 
     @Column(name = "category")
     private String category;
 
     @Column(name = "amount")
-    @NotEmpty(message = "Please specify the transaction amount")
     private double amount;
 
     @Column(name = "notes")

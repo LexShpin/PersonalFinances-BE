@@ -40,11 +40,10 @@ public class TransactionController {
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/update")
-    public ResponseEntity<Transaction> updateTransaction(@RequestBody Transaction transaction) {
-//        Transaction transaction = convertToTransaction(transactionDTO);
+    @PatchMapping("/{id}/update")
+    public ResponseEntity<Transaction> updateTransaction(@RequestBody Transaction transaction, @PathVariable("id") int id) {
 
-        transactionService.update(transaction.getId(), transaction);
+        transactionService.update(id, transaction);
 
         return new ResponseEntity<>(transaction, HttpStatus.OK);
     }

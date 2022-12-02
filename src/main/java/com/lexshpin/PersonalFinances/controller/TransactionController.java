@@ -25,24 +25,24 @@ public class TransactionController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping()
-    public ResponseEntity<List<Transaction>> getAllUserTransactions(@RequestBody UserDTO userDTO) {
-        List<Transaction> transactions = transactionService.findAllByUsername(userDTO.getName());
+    @GetMapping("/{username}")
+    public ResponseEntity<List<Transaction>> getAllUserTransactions(@PathVariable("username") String username) {
+        List<Transaction> transactions = transactionService.findAllByUsername(username);
 
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Transaction> createTransaction(@RequestBody TransactionDTO transactionDTO) {
-        Transaction transaction = convertToTransaction(transactionDTO);
+    public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction) {
+//        Transaction transaction = convertToTransaction(transactionService);
         transactionService.save(transaction);
 
         return new ResponseEntity<>(transaction, HttpStatus.CREATED);
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<Transaction> updateTransaction(@RequestBody TransactionDTO transactionDTO) {
-        Transaction transaction = convertToTransaction(transactionDTO);
+    public ResponseEntity<Transaction> updateTransaction(@RequestBody Transaction transaction) {
+//        Transaction transaction = convertToTransaction(transactionDTO);
 
         transactionService.update(transaction.getId(), transaction);
 

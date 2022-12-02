@@ -44,13 +44,14 @@ public class DashboardController {
     }
 
     @PostMapping("/{username}/updateBalance")
-    public ResponseEntity<UsersDetails> updateUserBalance(@PathVariable("username") String username, double balance) {
+    public ResponseEntity<UsersDetails> updateUserBalance(@PathVariable("username") String username, @RequestBody User passedUser) {
 
-        // TODO - endpoint for updating balance
-        UsersDetails currentUser = userService.loadUserByUsername(username);
-        currentUser.setBalance(balance);
+        UsersDetails foundUser = userService.loadUserByUsername(passedUser.getUsername());
+        foundUser.setBalance(passedUser.getBalance());
+        userService.update(foundUser.getUsername(), foundUser.getUser());
 
-        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 
 }

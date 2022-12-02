@@ -35,10 +35,10 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void update(String email, User userDTO) {
-        userDTO.setUsername(email);
+    public void update(String username, User user) {
+        user.setUsername(username);
 
-        userRepo.save(userDTO);
+        userRepo.save(user);
     }
 
     public void delete(int id) {

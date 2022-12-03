@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,13 @@ public class TransactionController {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getAllCategories() {
+        List<String> categories = new ArrayList<>();
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping("/create")
     public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction) {
 //        Transaction transaction = convertToTransaction(transactionService);
@@ -48,7 +56,7 @@ public class TransactionController {
         return new ResponseEntity<>(transaction, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}/delete")
     public ResponseEntity<?> deleteTransaction(@PathVariable("id") int id) {
 
         transactionService.delete(id);

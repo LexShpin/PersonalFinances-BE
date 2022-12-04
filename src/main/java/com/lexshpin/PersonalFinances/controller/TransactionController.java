@@ -2,6 +2,7 @@ package com.lexshpin.PersonalFinances.controller;
 
 import com.lexshpin.PersonalFinances.dto.TransactionDTO;
 import com.lexshpin.PersonalFinances.model.Transaction;
+import com.lexshpin.PersonalFinances.model.TransactionCategories;
 import com.lexshpin.PersonalFinances.model.User;
 import com.lexshpin.PersonalFinances.security.UsersDetails;
 import com.lexshpin.PersonalFinances.service.TransactionService;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -39,10 +42,10 @@ public class TransactionController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<String>> getAllCategories() {
-        List<String> categories = new ArrayList<>();
+    public ResponseEntity<List<TransactionCategories[]>> getAllCategories() {
+        List<TransactionCategories[]> categories = Collections.singletonList(TransactionCategories.values());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @PostMapping("/{username}/create")

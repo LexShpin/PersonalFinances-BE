@@ -38,11 +38,9 @@ public class SecurityConfig {
                         .requestMatchers("/dashboard", "/transactions").authenticated()
                         .anyRequest().permitAll())
                 .userDetailsService(userDetailsService)
-                .formLogin();
-//                .loginPage("/auth/login")
-//                .loginProcessingUrl("/auth/process_login")
-//                .defaultSuccessUrl("/dashboard")
-//                .failureUrl("/auth/login?error");
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/auth/login");
 
         return http.build();
     }

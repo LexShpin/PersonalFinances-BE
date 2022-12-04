@@ -52,4 +52,10 @@ public class AuthController {
 
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout() {
+        SecurityContextHolder.clearContext();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

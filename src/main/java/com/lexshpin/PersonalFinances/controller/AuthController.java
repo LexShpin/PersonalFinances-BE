@@ -1,8 +1,11 @@
 package com.lexshpin.PersonalFinances.controller;
 
+import com.lexshpin.PersonalFinances.dto.UserDTO;
 import com.lexshpin.PersonalFinances.model.User;
+import com.lexshpin.PersonalFinances.security.UsersDetails;
 import com.lexshpin.PersonalFinances.service.RegistrationService;
 import com.lexshpin.PersonalFinances.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,27 +24,31 @@ public class AuthController {
     private final RegistrationService registrationService;
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public AuthController(RegistrationService registrationService, AuthenticationManager authenticationManager, UserService userService) {
+    public AuthController(RegistrationService registrationService, AuthenticationManager authenticationManager, UserService userService, ModelMapper modelMapper) {
         this.registrationService = registrationService;
         this.authenticationManager = authenticationManager;
         this.userService = userService;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<UserDTO> registerUser(@RequestBody User user) {
 
         registrationService.register(user);
 
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        UserDTO userDTO = convertToUserDTO(user);
+
+        return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDetails> loginUser(@RequestBody User user) {
+    public ResponseEntity<UserDTO> loginUser(@RequestBody User user) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
 
-        UserDetails currentUser = userService.loadUserByUsername(user.getUsername());
+        UsersDetails currentUser = userService.loadUserByUsername(user.getUsername());
 
         try {
             authenticationManager.authenticate(authenticationToken);
@@ -50,12 +57,22 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        return new ResponseEntity<>(currentUser, HttpStatus.OK);
+        UserDTO userDTO = convertToUserDTO(currentUser);
+
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @GetMapping("/logout")
     public ResponseEntity<?> logout() {
         SecurityContextHolder.clearContext();
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private UserDTO convertToUserDTO(UsersDetails user) {
+        return modelMapper.map(user, UserDTO.class);
+    }
+
+    private UserDTO convertToUserDTO(User user) {
+        return modelMapper.map(user, UserDTO.class);
     }
 }

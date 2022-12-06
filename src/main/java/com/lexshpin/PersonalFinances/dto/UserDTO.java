@@ -15,10 +15,6 @@ public class UserDTO {
     @NotEmpty(message = "Please enter your email")
     private String username;
 
-    @Column(name = "password")
-    @NotEmpty(message = "Please enter the password")
-    private String password;
-
     @Column(name = "balance")
     private double balance;
 
@@ -36,14 +32,6 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public double getBalance() {

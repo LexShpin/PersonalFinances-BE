@@ -1,9 +1,7 @@
 package com.lexshpin.PersonalFinances.controller;
 
-import com.lexshpin.PersonalFinances.dto.TransactionDTO;
 import com.lexshpin.PersonalFinances.model.Transaction;
 import com.lexshpin.PersonalFinances.model.TransactionCategories;
-import com.lexshpin.PersonalFinances.model.User;
 import com.lexshpin.PersonalFinances.security.UsersDetails;
 import com.lexshpin.PersonalFinances.service.TransactionService;
 import com.lexshpin.PersonalFinances.service.UserService;
@@ -13,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,8 +45,7 @@ public class TransactionController {
     }
 
     @PostMapping("/{username}/create")
-    public ResponseEntity<Transaction> createTransaction(@PathVariable("username") String username, @RequestBody Transaction transaction) {
-//        Transaction transaction = convertToTransaction(transactionService);
+    public ResponseEntity<Transaction> createTransaction(@PathVariable("username") String username, @RequestBody Transaction transaction) {;
 
         UsersDetails existingUser = userService.loadUserByUsername(username);
         System.out.println(existingUser);
@@ -90,9 +85,5 @@ public class TransactionController {
         transactionService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private Transaction convertToTransaction(TransactionDTO transactionDTO) {
-        return modelMapper.map(transactionDTO, Transaction.class);
     }
 }
